@@ -8,6 +8,7 @@ export default function Home() {
   const { connect, disconnect, accounts, chains, setChains, signTransaction } =
     useWalletConnectClient();
   const [result, setResult] = useState<Record<string, any>>();
+  const [transactionData, setTransactionData] = useState<string>("");
   const network = [mainnet, testnet, devnet];
 
   useEffect(() => {
@@ -15,7 +16,7 @@ export default function Home() {
   }, [setChains]);
 
   const selectNetwork = (chainId: string) => {
-    setChains([chainId])
+    setChains([chainId]);
     // if (chains.includes(chainId)) {
     //   setChains(chains.filter((chain) => chain !== chainId));
     // } else {
@@ -23,15 +24,49 @@ export default function Home() {
     // }
   };
 
+  /* 
+
+  const ACCOUNT_SET_TX = {
+    TransactionType: "AccountSet",
+    Account: accounts[0].split(":")[2],
+    Domain:
+      "697066733A2F2F62616679626569676479727A74357366703775646D37687537367568377932366E6634646675796C71616266336F636C67747179353566627A6469",
+  };
+
+  const TRUST_SET_TX = {
+    TransactionType: "TrustSet",
+    Account: accounts[0].split(":")[2],
+    LimitAmount: {
+      currency: "524C555344000000000000000000000000000000",
+      issuer: "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+      value: "100",
+    },
+  };
+
+  const RL_USD_TX = {
+        TransactionType: "Payment",
+        Account: accounts[0].split(":")[2],
+        Destination: "rUgZJwi6H4GHUpCGrFQSKrPnjTR169Hgwi",
+        Amount: {
+          currency: "524C555344000000000000000000000000000000",
+          value: ".01",
+          issuer: "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+        },
+      }
+
+  */
+
   const testTransaction = async () => {
-    setResult(undefined);
-    const result = await signTransaction(chains[0], {
-      TransactionType: "Payment",
-      Account: accounts[0].split(":")[2],
-      Destination: "rQQQrUdN1cLdNmxH4dHfKgmX5P4kf3ZrM",
-      Amount: '1000000'
-    });
-    setResult(result);
+    try {
+      const parsedJson = JSON.parse(transactionData);
+
+      setResult(undefined);
+      const result = await signTransaction(chains[0], parsedJson);
+      setResult(result);
+    } catch (e) {
+      alert("error parsing json");
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -40,7 +75,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen gap-2 p-24 justify-center items-center">
-      <Image width="192" height='133' src="walletconnect.svg" alt="walletconnect" />
+      <Image
+        width="192"
+        height="133"
+        src="walletconnect.svg"
+        alt="walletconnect"
+      />
       <div className="m-10 text-center">
         <span className="text-4xl md:text-6xl">XRPL WalletConnect</span>
       </div>
@@ -82,6 +122,7 @@ export default function Home() {
           {accounts.map((account) => (
             <div key={account}>{account}</div>
           ))}
+          <input onChange={(e) => setTransactionData(e.target.value)}></input>
           <button
             className="btn btn-accent mt-2"
             onClick={() => testTransaction()}
