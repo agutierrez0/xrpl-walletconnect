@@ -12,8 +12,9 @@ const walletConnectMetadata = {
   icons: [],
 };
 
-const projectId = "test";
-const relayUrl = "wss://relay.walletconnect.com";
+const projectId = process.env.NEXT_PUBLIC_PROJECT_ID!;
+const relayUrl =
+  process.env.NEXT_PUBLIC_RELAY_URL || "wss://relay.walletconnect.com";
 
 export default function RootLayout({
   children,

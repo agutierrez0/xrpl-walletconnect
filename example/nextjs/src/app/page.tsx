@@ -17,44 +17,7 @@ export default function Home() {
 
   const selectNetwork = (chainId: string) => {
     setChains([chainId]);
-    // if (chains.includes(chainId)) {
-    //   setChains(chains.filter((chain) => chain !== chainId));
-    // } else {
-    //   setChains([...chains, chainId]);
-    // }
   };
-
-  /* 
-
-  const ACCOUNT_SET_TX = {
-    TransactionType: "AccountSet",
-    Account: accounts[0].split(":")[2],
-    Domain:
-      "697066733A2F2F62616679626569676479727A74357366703775646D37687537367568377932366E6634646675796C71616266336F636C67747179353566627A6469",
-  };
-
-  const TRUST_SET_TX = {
-    TransactionType: "TrustSet",
-    Account: accounts[0].split(":")[2],
-    LimitAmount: {
-      currency: "524C555344000000000000000000000000000000",
-      issuer: "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
-      value: "100",
-    },
-  };
-
-  const RL_USD_TX = {
-        TransactionType: "Payment",
-        Account: accounts[0].split(":")[2],
-        Destination: "rUgZJwi6H4GHUpCGrFQSKrPnjTR169Hgwi",
-        Amount: {
-          currency: "524C555344000000000000000000000000000000",
-          value: ".01",
-          issuer: "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
-        },
-      }
-
-  */
 
   const testTransaction = async () => {
     try {
