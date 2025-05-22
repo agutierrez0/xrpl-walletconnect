@@ -10,7 +10,7 @@ https://docs.walletconnect.com/2.0/advanced/rpc-reference/xrpl-rpc
 
 Reference `.env.local.example` and replace the values there accordingly.
 
-There is a fallback for `relayUrl` to fallback to `wss://relay.walletconnect.com`. The other env variable, `projectId` is required.
+The environment variable `relayUrl` will fallback to `wss://relay.walletconnect.com` if there is no value provided. The other env variable, `projectId` is required.
 
 ## 🚀 Get started 
 
