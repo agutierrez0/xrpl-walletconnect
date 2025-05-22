@@ -2,59 +2,31 @@
 
 [![react](https://badge.fury.io/js/@xrpl-walletconnect%2Freact.svg)](https://badge.fury.io/js/@xrpl-walletconnect%2Freact)
 
-## Document
+## 📄 Document 
 
 https://docs.walletconnect.com/2.0/advanced/rpc-reference/xrpl-rpc
 
-## usase
+## 🌳 Configure environment 
 
-```jsx
-import { testnet } from "@xrpl-walletconnect/core";
-import { ClientContextProvider } from "@xrpl-walletconnect/react";
+Reference `.env.local.example` and replace the values there accordingly.
 
-const App = () => {
-  return (
-    <ClientContextProvider
-      projectId={projectId}
-      metadata={walletConnectMetadata}
-      relayUrl={relayUrl}
-      defaultChains={[testnet.id]}
-    >
-      <Component />
-    </ClientContextProvider>
-  );
-};
+There is a fallback for `relayUrl` to fallback to `wss://relay.walletconnect.com`. The other env variable, `projectId` is required.
+
+## 🚀 Get started 
+
+Run the following from root:
+
+```bash
+> cd example/nextjs
+> pnpm install
+> npm run dev
 ```
 
-```jsx
-import { useWalletConnectClient } from "@xrpl-walletconnect/react";
-import { mainnet, testnet, devnet } from "@xrpl-walletconnect/core";
+You should see the following output:
 
-const Component = ({ children }) => {
-  const { accounts, connect, disconnect, chains, setChains, signTransaction } =
-    useWalletConnectClient();
+```bash
+> dev
+> next dev
 
-  const testTransaction = () => {
-    signTransaction(chains[0], {
-      TransactionType: "AccountSet",
-      Account: accounts[0].split(":")[2],
-    });
-  };
-
-  return (
-    <>
-      <button onClick={connect}>Connect</button>
-      <button onClick={disconnect}>Disconnect</button>
-      {accounts.length > 0 && (
-        <button onClick={testTransaction}>Sign Transaction</button>
-      )}
-    </>
-  );
-};
+- ready started server on 0.0.0.0:3000, url: http://localhost:3000
 ```
-
-## How to Publish packages
-
-1. `pnpm run version`
-
-2. `pnpm run publish`
